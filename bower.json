@@ -15,7 +15,6 @@
   ],
   "dependencies": {
     "jquery": "~2.0.3",
-    "zenpen": "git@github.com:tholman/zenpen.git",
     "jquery-mentions-input": "git@github.com:oncletom/jquery-mentions-input.git",
     "bootstrap": "~3.0.0",
     "lodash": "~2.2.1",
