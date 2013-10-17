@@ -3,22 +3,39 @@
 ; (function($){
   var updateRelatedList = function (related) {
 
-    var $list = $("#related").find("ul").empty();
+    var $list = $("#related-topics");
+    $list.find(".list-group-item:not(.active)").remove();
 
-    for (var i = 0; i < related.length; i++) {
-      var r = related[i];
-      console.log(r);
-      var $li = $("<li />");
-      var $img = $("<img src='"+r.img+"' width='40' />");
-      var $a = $("<a href='"+r.thing+"'>"+r.label+"<a/>");
-      $list.append($li.append($img, $a));
-    };
+    var $templatedRelated = $.map(related, function(data){
+      return $('<a>')
+        .attr('href', data.thing)
+        .attr('target', '_blank')
+        .addClass('list-group-item')
+        .append(
+          $('<img>')
+            .attr('src', data.img)
+            .attr('width', 40)
+            .addClass('img-thumbnail pull-left')
+        )
+        .append(
+          $('<h4>')
+            .addClass('list-group-item-heading')
+            .html(data.label)
+        )
+        .append(
+          $('<p>')
+            .addClass('url')
+            .html(data.thing)
+        )
+    });
+
+    $list.append($templatedRelated);
   };
 
-  $("#mainForm").on("submit", function (event) {
+  $("#related-topics-btn").on("click", function (event) {
     event.preventDefault();
 
-    $('textarea').data("mentionsInput").getMentions(function (mentions) {
+    $('.field-textarea').data("mentionsInput").getMentions(function (mentions) {
       var ids = [];
       $.each(mentions, function (index, tag) {
         ids.push(tag.id);

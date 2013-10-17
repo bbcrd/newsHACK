@@ -41,3 +41,11 @@ a {
 .mentions-autocomplete-list {
   margin: 0 0 0 10px;
 }
+.list-group .url {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+.list-group .img-thumbnail {
+  margin-right: 5px;
+}
