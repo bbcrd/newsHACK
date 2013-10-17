@@ -6,6 +6,6 @@
 
  - `npm install`
 
- - `node app`
+ - `npm start`
 
  - visit at `0.0.0.0:3000`
