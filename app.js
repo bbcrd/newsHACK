@@ -38,8 +38,8 @@ app.get('/tags', function (req, res) {
 
   var post_data = {
     "query":{ "bool":{ "must":{ "wildcard":{
-            "label":req.query.text+"*"
-    }}}}
+            "lower_label":req.query.text.toLowerCase()+"*"
+    }}, "must_not": { "query_string": { "query": "disambiguation" }}}}
   };
 
   var post_data_string = JSON.stringify(post_data);
