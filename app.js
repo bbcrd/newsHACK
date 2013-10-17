@@ -38,9 +38,25 @@ app.get('/users', user.list);
 app.get('/tags', function (req, res) {
 
   var post_data = {
-    "query":{ "bool":{ "must":{ "wildcard":{
-            "lower_label":req.query.text.toLowerCase()+"*"
-    }}, "must_not": { "query_string": { "query": "disambiguation" }}}}
+    "query": {
+      "bool": {
+        "must": {
+          "prefix": {
+            "lower_label": req.query.text.toLowerCase()
+          }
+        },
+        "should": {
+          "prefix": {
+            "label": req.query.text
+          }
+        },
+        "must_not": {
+          "query_string": {
+            "query": "disambiguation"
+          }
+        }
+      }
+    }
   };
 
   var post_data_string = JSON.stringify(post_data);
