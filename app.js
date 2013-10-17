@@ -227,7 +227,7 @@ app.post("/extract", function (req, res) {
 
   var options = {
     hostname : 'ec2-54-229-238-114.eu-west-1.compute.amazonaws.com',
-    path : '/topic-finder/find'+ids_string,
+    path : '/topic-finder/find/topic'+ids_string,
     port : 80,
     method : 'GET'
   };
