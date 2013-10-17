@@ -6,6 +6,28 @@
     <link rel='stylesheet' href='components/jquery-mentions-input/jquery.mentionsInput.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
 
+    <style>
+
+      #related h2 {
+        margin: 0 0 6px 0;
+      }
+
+      #related ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #related ul li {
+        margin: 0 0 6px 0;
+      }
+
+      #related ul li img {
+        margin: 0 6px 0 0;
+      }
+
+    </style>
+
     <script src="components/jquery/jquery.min.js"></script>
     <script src="components/lodash/dist/lodash.min.js"></script>
     <script src="components/jquery.elastic/jquery.elastic.source.js"></script>
@@ -13,12 +35,55 @@
 
     <script>
       $(function () {
-        console.log("DOM ready");
-        // On keystroke
-        var tagText = "David Cameron";
-        var data = {
-          text: tagText
+
+        $('textarea').mentionsInput({
+          triggerChar: '+',
+          onDataRequest:function (mode, query, callback) {
+            $.getJSON("/tags", { text: query }, function (response) {
+              var data = _.map(response, function(item){
+                return {
+                  id: item.uri,
+                  name: item.label,
+                  avatar: 'http://fillmurray.com/30/30',
+                  type: 'dbpedia'
+                };
+              });
+
+              // parse response
+              callback.call(this, data);
+            });
+          }
+        });
+
+        var updateRelatedList = function (related) {
+
+          var $list = $("#related").find("ul").empty();
+
+          for (var i = 0; i < related.length; i++) {
+            var r = related[i];
+            console.log(r);
+            var $li = $("<li />");
+            var $img = $("<img src='"+r.img+"' width='40' />");
+            var $a = $("<a href='"+r.thing+"'>"+r.label+"<a/>");
+            $list.append($li.append($img, $a));
+          };
         };
+
+        $("#mainForm").on("submit", function (event) {
+          event.preventDefault();
+
+          $('textarea').data("mentionsInput").getMentions(function (mentions) {
+            var ids = [];
+            $.each(mentions, function (index, tag) {
+              ids.push(tag.id);
+            });
+            $.post("/extract", { ids: ids }, function (response) {
+              updateRelatedList(response);
+            });
+          });
+
+        });
+
 
       });
     </script>
@@ -36,8 +101,9 @@
       <div class="row">
 
         <div class="col-md-8">
+
           <!-- FORM -->
-          <form class="form-horizontal" role="form">
+          <form class="form-horizontal" role="form" id="mainForm">
             <div class="form-group">
               <label for="title" class="col-lg-2 control-label">Title</label>
               <div class="col-lg-10">
@@ -53,12 +119,12 @@
             <div class="form-group">
               <label for="body" class="col-lg-2 control-label">Body</label>
               <div class="col-lg-offset-2 col-lg-10">
-                <textarea class="form-control" rows="3" id="body" placeholder="Start Writing..."></textarea>
+                <textarea class="form-control" rows="3" id="body" name="body" placeholder="Start Writing..."></textarea>
               </div>
             </div>
             <div class="form-group">
               <div class="col-lg-offset-2 col-lg-10">
-                <button type="submit" class="btn btn-primary">Send for content extraction</button>
+                <button type="submit" class="btn btn-primary">Find Related topics</button>
               </div>
             </div>
           </form>
@@ -72,11 +138,6 @@
           <div id="related">
             <h2>Related Articles</h2>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
             </ul>
           </div>
         </div>
@@ -86,26 +147,6 @@
     </div><!-- .container -->
 
     <script type="text/javascript">
-
-      $('textarea').mentionsInput({
-        triggerChar: '+',
-        onDataRequest:function (mode, query, callback) {
-          $.getJSON("/tags", { text: query }, function (response) {
-            var data = _.map(response, function(item){
-              return {
-                id: item.uri,
-                name: item.label,
-                avatar: 'http://fillmurray.com/30/30',
-                type: 'dbpedia'
-              };
-            });
-
-            // parse response
-            console.log(data);
-            callback.call(this, data);
-          });
-        }
-      });
 
       $.get("/tag_image", { uri: "David_Cameron" }, function (response) {
         // response = url of image

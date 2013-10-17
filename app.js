@@ -219,6 +219,39 @@ app.get('/livetopics', function (req, res) {
 
 });
 
+app.post("/extract", function (req, res) {
+
+  var ids_string = "?id=" + req.body.ids.reduce(function (a, b) {
+    return a + "&id=" + b;
+  });
+
+  var options = {
+    hostname : 'ec2-54-229-238-114.eu-west-1.compute.amazonaws.com',
+    path : '/topic-finder/find'+ids_string,
+    port : 80,
+    method : 'GET'
+  };
+
+  var request = http.request(options, function(response){
+    var body = "";
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      if (response.statusCode == 200) {
+        res.send(JSON.parse(body));
+      }
+    });
+  });
+
+  request.on('error', function(e) {
+    res.send('Problem with request: ' + e.message);
+  });
+
+  request.end();
+
+  //res.send(req.body.article);
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
