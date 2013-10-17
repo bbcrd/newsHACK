@@ -28,13 +28,13 @@ a {
 .Medium p {
   margin: 5px 0 15px   !important;
 }
-.Medium.title {
+.Medium.field-title {
   font-size: 35px;
   min-height: 52px;
 }
-.tags {
+.field-tags {
   min-height: 40px;
 }
-.text-body {
+.field-textarea {
   min-height: 200px;
 }

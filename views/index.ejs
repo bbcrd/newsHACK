@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='components/bootstrap/dist/css/bootstrap.min.css' />
     <link rel='stylesheet' href='components/jquery-mentions-input/jquery.mentionsInput.css' />
+    <link rel='stylesheet' href='components/medium/medium.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
@@ -19,43 +20,40 @@
 
         <div class="col-md-8">
 
-          <!-- FORM -->
-          <form class="form-horizontal" role="form" id="mainForm">
-            <div class="form-group">
-              <label for="title" class="col-lg-2 control-label">Title</label>
-              <div class="col-lg-10">
-                <input type="text" class="form-control" id="title" placeholder="Title">
-              </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="field Medium field-title" contenteditable data-medium-placeholder="Title"></div>
             </div>
-            <div class="form-group">
-              <label for="tags" class="col-lg-2 control-label">Tags</label>
-              <div class="col-lg-10">
-                <input type="text" class="form-control" id="tags" placeholder="Tags">
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="field Medium field-tags" contenteditable data-medium-placeholder="Tags"></div>
             </div>
-            <div class="form-group">
-              <label for="body" class="col-lg-2 control-label">Body</label>
-              <div class="col-lg-offset-2 col-lg-10">
-                <textarea class="form-control" rows="3" id="body" name="body" placeholder="Start Writing..."></textarea>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="field Medium field-textarea" contenteditable data-medium-mode="rich" data-medium-placeholder="Please tale me a story…"></div>
             </div>
-            <div class="form-group">
-              <div class="col-lg-offset-2 col-lg-10">
-                <button type="submit" class="btn btn-primary">Find Related topics</button>
-              </div>
-            </div>
-          </form>
-
+          </div>
         </div>
 
         <div class="col-md-4">
+          <div class="btn-group btn-group-justified">
+            <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Related topics</a>
+            <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Related stories</a>
+          </div>
 
-          <!-- RELATED CONTENT -->
+          <hr>
 
-          <div id="related">
-            <h2>Related topics</h2>
-            <ul>
-            </ul>
+          <div class="list-group">
+            <a href="#" class="list-group-item active">
+              <h3 class="list-group-item-heading">Related Topics</h3>
+            </a>
+
+            <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">...</p>
+            </a>
           </div>
         </div>
 
@@ -65,6 +63,7 @@
 
     <script src="components/jquery/jquery.min.js"></script>
     <script src="components/lodash/dist/lodash.min.js"></script>
+    <script src="components/medium/medium.js"></script>
     <script src="components/jquery.elastic/jquery.elastic.source.js"></script>
     <script src="components/jquery-mentions-input/jquery.mentionsInput.js"></script>
     <script src="/javascripts/tagging.js"></script>

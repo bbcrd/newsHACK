@@ -1,8 +1,14 @@
 'use strict';
 
 ; (function($){
+  ['.field-title', '.field-tags', '.field-textarea'].forEach(function(selector){
+    new Medium({
+      element: document.querySelector(selector)
+    });
+  });
 
-  $('textarea').mentionsInput({
+
+  $('.field-textarea').mentionsInput({
     triggerChar: '+',
     onDataRequest:function (mode, query, callback) {
       $.getJSON("/tags", { text: query }, function (response) {
