@@ -40,7 +40,8 @@
       $.each(mentions, function (index, tag) {
         ids.push(tag.id);
       });
-      $.post("/extract", { ids: ids }, function (response) {
+
+      $.post("/extract/topic", { ids: ids }, function (response) {
         updateRelatedList(response);
       });
     });

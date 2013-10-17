@@ -8,6 +8,7 @@ var express = require('express'),
     user = require('./routes/user'),
     http = require('http'),
     path = require('path'),
+    request = require('request'),
     natural = require('natural');
 
 var GUARDIAN_API_KEY = "NewsLabs2013"; // api-key
@@ -16,22 +17,23 @@ var NEWSHACK_API_KEY = "tu5q78bw3hc8erqgxrwgbhjc";
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(require('less-middleware')({ src: __dirname + '/public' }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/components', express.static(path.join(__dirname, 'bower_components')));
+app.configure(function(){
+  app.set('port', process.env.PORT || 3000);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'ejs');
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(require('less-middleware')({ src: __dirname + '/public' }));
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/components', express.static(path.join(__dirname, 'bower_components')));
+});
 
-// development only
-if ('development' == app.get('env')) {
+app.configure('development', function(){
   app.use(express.errorHandler());
-}
+});
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -219,40 +221,25 @@ app.get('/livetopics', function (req, res) {
 
 });
 
-app.post("/extract", function (req, res) {
-
+app.post("/extract/:context", function (req, res) {
   var ids_string = "?id=" + req.body.ids.reduce(function (a, b) {
     return a + "&id=" + b;
   });
 
   var options = {
-    hostname : 'ec2-54-229-238-114.eu-west-1.compute.amazonaws.com',
-    path : '/topic-finder/find/topic'+ids_string,
-    port : 80,
-    method : 'GET'
+    uri: 'http://ec2-54-229-238-114.eu-west-1.compute.amazonaws.com/topic-finder/find/'+req.params.context+ids_string,
+    json: true
   };
 
-  var request = http.request(options, function(response){
-    var body = "";
-    response.on('data', function(data) {
-      body += data;
-    });
-    response.on('end', function() {
-      if (response.statusCode == 200) {
-        res.send(JSON.parse(body));
-      }
-    });
+  request.get(options, function(err, response, body){
+    if (err){
+      res.send('Problem with request: ' + err.message);
+    }
+
+    res.json(body);
   });
-
-  request.on('error', function(e) {
-    res.send('Problem with request: ' + e.message);
-  });
-
-  request.end();
-
-  //res.send(req.body.article);
 });
 
-http.createServer(app).listen(app.get('port'), function(){
+app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
