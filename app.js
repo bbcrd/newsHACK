@@ -3,11 +3,11 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+var express = require('express'),
+    routes = require('./routes'),
+    user = require('./routes/user'),
+    http = require('http'),
+    path = require('path');
 
 var GUARDIAN_API_KEY = "NewsLabs2013"; // api-key
 var NEWSHACK_API_KEY = "tu5q78bw3hc8erqgxrwgbhjc";
@@ -35,25 +35,49 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 app.get('/tags', function (req, res) {
-  console.log(req.query.text);
-  res.send({
-    tags: [{
-      tagName: "name",
-      tagText: req.query.text
-    },
-    {
-      tagName: "name",
-      tagText: req.query.text
-    },
-    {
-      tagName: "name",
-      tagText: req.query.text
-    },
-    {
-      tagName: "name",
-      tagText: req.query.text
-    }]
+
+  var post_data = {
+    "query":{ "bool":{ "must":{ "wildcard":{
+            "label":req.query.text+"*"
+    }}}}
+  };
+
+  var post_data_string = JSON.stringify(post_data);
+
+  // Tripplestore API
+  var options = {
+    hostname : 'ec2-54-229-238-114.eu-west-1.compute.amazonaws.com',
+    path: '/label-index/_search',
+    port : 80,
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': post_data_string.length
+    }
+  };
+
+  var request = http.request(options, function(response){
+    var body = "";
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      if (response.statusCode == 200) {
+        body = JSON.parse(body);
+        var response_hits = body.hits.hits.map(function (hit) {
+          return hit["_source"];
+        });
+        res.send(response_hits);
+      }
+    });
   });
+
+  request.on('error', function(e) {
+    res.send('Problem with request: ' + e.message);
+  });
+
+  request.write(post_data_string);
+  request.end();
 });
 
 app.get('/livetopics', function (req, res) {
