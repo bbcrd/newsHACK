@@ -36,28 +36,41 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 app.get('/tags', function (req, res) {
-
+  var query = req.query.text;
+  var lc_query = query.toLowerCase();
   var post_data = {
-    "query": {
-      "bool": {
-        "must": {
+  "query": {
+    "bool": {
+      "must": {
+        "prefix": {
+          "lower_label": lc_query
+        }
+      },
+      "should": [
+        {
           "prefix": {
-            "lower_label": req.query.text.toLowerCase()
+            "label": query
           }
         },
-        "should": {
-          "prefix": {
-            "label": req.query.text
+        {
+          "match": {
+            "label": query
           }
         },
-        "must_not": {
-          "query_string": {
-            "query": "disambiguation"
+        {
+          "match": {
+            "lower_label": lc_query
           }
+        }
+      ],
+      "must_not": {
+        "query_string": {
+          "query": "disambiguation"
         }
       }
     }
-  };
+  }};
+
 
   var post_data_string = JSON.stringify(post_data);
 
