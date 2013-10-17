@@ -107,8 +107,9 @@
         }
       });
 
-      $.get("/tag_image", { label: "David_Cameron" }, function (response) {
+      $.get("/tag_image", { uri: "David_Cameron" }, function (response) {
         // response = url of image
+        console.log(response);
       });
 
     </script>
