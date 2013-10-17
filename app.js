@@ -7,7 +7,8 @@ var express = require('express'),
     routes = require('./routes'),
     user = require('./routes/user'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    natural = require('natural');
 
 var GUARDIAN_API_KEY = "NewsLabs2013"; // api-key
 var NEWSHACK_API_KEY = "tu5q78bw3hc8erqgxrwgbhjc";
@@ -38,15 +39,19 @@ app.get('/users', user.list);
 app.get('/tags', function (req, res) {
   var query = req.query.text;
   var lc_query = query.toLowerCase();
+  var stemmed_terms = query.split(' (')[0].split(', ')[0].split(' ').map(function (word) {
+    return natural.PorterStemmer.stem(word);
+  });
+  var search_query = stemmed_terms.join(' ');
   var post_data = {
   "query": {
     "bool": {
-      "must": {
-        "prefix": {
-          "lower_label": lc_query
-        }
-      },
       "should": [
+        {
+          "prefix": {
+            "lower_label": lc_query
+          }
+        },
         {
           "prefix": {
             "label": query
@@ -61,8 +66,14 @@ app.get('/tags', function (req, res) {
           "match": {
             "lower_label": lc_query
           }
+        },
+        {
+          "prefix": {
+            "search_label": search_query
+          }
         }
       ],
+      "minimum_should_match": 1,
       "must_not": {
         "query_string": {
           "query": "disambiguation"
