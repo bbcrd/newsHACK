@@ -27,5 +27,20 @@
     }
   });
 
+  $('.field-textarea').on('input mentions.show', function(event){
+    var $autocompleteList = $(this).next('.mentions-autocomplete-list:visible');
+
+    if ($autocompleteList && $autocompleteList.length){
+      var offsetPos = $(this).offset();
+      var pos = getCaretPixelPos(this);
+      var coords = {
+        left: parseInt(pos.left, 10) - offsetPos.left - window.pageXOffset,
+        top: parseInt(pos.top, 10) - offsetPos.top + window.pageYOffset
+      };
+
+      $autocompleteList.css(coords);
+    }
+  });
+
 })(jQuery);
 
