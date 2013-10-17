@@ -1,0 +1,23 @@
+{
+  "name": "newsHACK",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chrisfinch/newsHACK",
+  "authors": [
+    "Anthony Onumonu"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "zenpen": "git@github.com:tholman/zenpen.git",
+    "jquery-mentions-input": "git@github.com:podio/jquery-mentions-input.git",
+    "bootstrap": "~3.0.0",
+    "lodash": "~2.2.1"
+  }
+}
