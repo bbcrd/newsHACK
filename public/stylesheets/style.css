@@ -5,3 +5,36 @@ body {
 a {
   color: #00B7FF;
 }
+#related h2 {
+  margin: 0 0 6px 0;
+}
+#related ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#related ul li {
+  margin: 0 0 6px 0;
+}
+#related ul li img {
+  margin: 0 6px 0 0;
+}
+.Medium[contenteditable] {
+  border: 1px solid rgba(0, 0, 0, 0.075);
+  font-size: 20px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.Medium p {
+  margin: 5px 0 15px   !important;
+}
+.Medium.title {
+  font-size: 35px;
+  min-height: 52px;
+}
+.tags {
+  min-height: 40px;
+}
+.text-body {
+  min-height: 200px;
+}
