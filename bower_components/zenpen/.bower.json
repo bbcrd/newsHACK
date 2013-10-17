@@ -1,0 +1,14 @@
+{
+  "name": "zenpen",
+  "homepage": "https://github.com/tholman/zenpen",
+  "_release": "master",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "d6654cf26a1e4030bc67639accfa9461bc7bd154"
+  },
+  "_source": "git@github.com:tholman/zenpen.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:tholman/zenpen.git",
+  "_direct": true
+}

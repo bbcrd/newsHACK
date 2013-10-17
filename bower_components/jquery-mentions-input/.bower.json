@@ -1,0 +1,14 @@
+{
+  "name": "jquery-mentions-input",
+  "homepage": "https://github.com/podio/jquery-mentions-input",
+  "_release": "master",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f6752d59517e7b8373279330248c7c9b2f2e0b13"
+  },
+  "_source": "git@github.com:podio/jquery-mentions-input.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:podio/jquery-mentions-input.git",
+  "_direct": true
+}
