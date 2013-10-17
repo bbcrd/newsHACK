@@ -222,6 +222,10 @@ app.get('/livetopics', function (req, res) {
 });
 
 app.post("/extract/:context", function (req, res) {
+  if (req.body.ids === undefined){
+    return res.json([]);
+  }
+
   var ids_string = "?id=" + req.body.ids.reduce(function (a, b) {
     return a + "&id=" + b;
   });
