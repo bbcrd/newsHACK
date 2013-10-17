@@ -5,89 +5,6 @@
     <link rel='stylesheet' href='components/bootstrap/dist/css/bootstrap.min.css' />
     <link rel='stylesheet' href='components/jquery-mentions-input/jquery.mentionsInput.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
-    <style>
-
-      #related h2 {
-        margin: 0 0 6px 0;
-      }
-
-      #related ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      #related ul li {
-        margin: 0 0 6px 0;
-      }
-
-      #related ul li img {
-        margin: 0 6px 0 0;
-      }
-
-    </style>
-
-    <script src="components/jquery/jquery.min.js"></script>
-    <script src="components/lodash/dist/lodash.min.js"></script>
-    <script src="components/jquery.elastic/jquery.elastic.source.js"></script>
-    <script src="components/jquery-mentions-input/jquery.mentionsInput.js"></script>
-
-    <script>
-      $(function () {
-
-        $('textarea').mentionsInput({
-          triggerChar: '+',
-          onDataRequest:function (mode, query, callback) {
-            $.getJSON("/tags", { text: query }, function (response) {
-              var data = _.map(response, function(item){
-                return {
-                  id: item.uri,
-                  name: item.label,
-                  avatar: 'http://fillmurray.com/30/30',
-                  type: 'dbpedia'
-                };
-              });
-
-              // parse response
-              callback.call(this, data);
-            });
-          }
-        });
-
-        var updateRelatedList = function (related) {
-
-          var $list = $("#related").find("ul").empty();
-
-          for (var i = 0; i < related.length; i++) {
-            var r = related[i];
-            console.log(r);
-            var $li = $("<li />");
-            var $img = $("<img src='"+r.img+"' width='40' />");
-            var $a = $("<a href='"+r.thing+"'>"+r.label+"<a/>");
-            $list.append($li.append($img, $a));
-          };
-        };
-
-        $("#mainForm").on("submit", function (event) {
-          event.preventDefault();
-
-          $('textarea').data("mentionsInput").getMentions(function (mentions) {
-            var ids = [];
-            $.each(mentions, function (index, tag) {
-              ids.push(tag.id);
-            });
-            $.post("/extract", { ids: ids }, function (response) {
-              updateRelatedList(response);
-            });
-          });
-
-        });
-
-
-      });
-    </script>
-
   </head>
   <body>
     <div class="container">
@@ -146,12 +63,19 @@
 
     </div><!-- .container -->
 
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/lodash/dist/lodash.min.js"></script>
+    <script src="components/jquery.elastic/jquery.elastic.source.js"></script>
+    <script src="components/jquery-mentions-input/jquery.mentionsInput.js"></script>
+    <script src="/javascripts/tagging.js"></script>
+    <script src="/javascripts/related.js"></script>
+
     <script type="text/javascript">
 
-      $.get("/tag_image", { uri: "David_Cameron" }, function (response) {
+      /*$.get("/tag_image", { uri: "David_Cameron" }, function (response) {
         // response = url of image
         console.log(response);
-      });
+      });*/
 
     </script>
   </body>
