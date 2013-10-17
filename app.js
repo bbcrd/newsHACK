@@ -34,6 +34,27 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
+app.get('/tags', function (req, res) {
+  console.log(req.query.text);
+  res.send({
+    tags: [{
+      tagName: "name",
+      tagText: req.query.text
+    },
+    {
+      tagName: "name",
+      tagText: req.query.text
+    },
+    {
+      tagName: "name",
+      tagText: req.query.text
+    },
+    {
+      tagName: "name",
+      tagText: req.query.text
+    }]
+  });
+});
 
 app.get('/livetopics', function (req, res) {
   console.log(req.query);
