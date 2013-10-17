@@ -9,6 +9,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+var GUARDIAN_API_KEY = "NewsLabs2013"; // api-key
+var NEWSHACK_API_KEY = "tu5q78bw3hc8erqgxrwgbhjc";
+
 var app = express();
 
 // all environments
@@ -30,6 +33,38 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+
+app.get('/livetopics', function (req, res) {
+  console.log(req.query);
+  var options = { // http://bbc.api.mashery.com/livetopics/topics?service=bbcone&from=2013-01-15T12%3A00%3A00Z&to=2013-01-15T12%3A05%3A00Z&api_key=fd6urvpzbc498vmx6dsa5evg
+    hostname : 'bbc.api.mashery.com',
+    path : '/livetopics/topics?service=bbcone&from=2013-01-15T12%3A00%3A00Z&to=2013-01-15T12%3A05%3A00Z&api_key='+NEWSHACK_API_KEY,
+    port : 80,
+    method : 'GET'
+  };
+
+  var request = http.request(options, function(response){
+    console.log(options.host+options.path);
+    var body = "";
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      if (response.statusCode == 200) {
+        res.send(JSON.parse(body));
+      }
+    });
+  });
+
+  request.on('error', function(e) {
+    res.send('Problem with request: ' + e.message);
+  });
+
+  request.end();
+
+});
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
