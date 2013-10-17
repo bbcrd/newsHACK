@@ -18,6 +18,7 @@
     "zenpen": "git@github.com:tholman/zenpen.git",
     "jquery-mentions-input": "git@github.com:podio/jquery-mentions-input.git",
     "bootstrap": "~3.0.0",
-    "lodash": "~2.2.1"
+    "lodash": "~2.2.1",
+    "jquery.elastic": "http://jquery-elastic.googlecode.com/files/jquery.elastic-1.6.11.zip"
   }
 }

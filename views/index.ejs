@@ -19,10 +19,7 @@
         var data = {
           text: tagText
         };
-        $.get("/tags", data, function (response) {
-          // parse response
-          console.log(response);
-        });
+
       });
     </script>
 
@@ -92,18 +89,20 @@
       $('textarea').mentionsInput({
         triggerChar: '+',
         onDataRequest:function (mode, query, callback) {
-          var data = [
-            { id:1, name:'Kenneth Auchenberg', 'avatar':'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif', 'type':'contact' },
-            { id:2, name:'Jon Froda', 'avatar':'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif', 'type':'contact' },
-            { id:3, name:'Anders Pollas', 'avatar':'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif', 'type':'contact' },
-            { id:4, name:'Kasper Hulthin', 'avatar':'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif', 'type':'contact' },
-            { id:5, name:'Andreas Haugstrup', 'avatar':'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif', 'type':'contact' },
-            { id:6, name:'Pete Lacey', 'avatar':'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif', 'type':'contact' }
-          ];
+          $.getJSON("/tags", { text: query }, function (response) {
+            var data = _.map(response, function(item){
+              return {
+                id: item.uri,
+                name: item.label,
+                avatar: 'http://fillmurray.com/30/30',
+                type: 'dbpedia'
+              };
+            });
 
-          data = _.filter(data, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
-
-          callback.call(this, data);
+            // parse response
+            console.log(data);
+            callback.call(this, data);
+          });
         }
       });
     </script>

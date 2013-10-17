@@ -121,8 +121,76 @@ app.get('/tags', function (req, res) {
   request.end();
 });
 
+app.get('/tag_image', function (req, res) {
+  // http://en.wikipedia.org/w/api.php?action=query&prop=images&format=json&titles=David_Cameron
+
+  var get_wiki_file_image = function (filename, callback) {
+    // http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Image:CameronNewcastle.jpg&prop=imageinfo&iiprop=url
+    // Wiki image from file
+    var options = {
+      hostname : 'en.wikipedia.org',
+      path: '/w/api.php?format=json&action=query&prop=imageinfo&iiprop=url&titles='+filename,
+      port : 80,
+      method : 'GET'
+    };
+    var request = http.request(options, function(response){
+      var body = "";
+      response.on('data', function(data) {
+        body += data;
+      });
+      response.on('end', function() {
+        if (response.statusCode == 200) {
+          var data = JSON.parse(body).query.pages;
+          var url;
+          for (var key in data) {
+            url = data[key].imageinfo[0].url;
+          }
+          callback(url);
+        }
+      });
+    });
+    request.on('error', function(e) {
+      res.send('Problem with request: ' + e.message);
+    });
+    request.end();
+  };
+
+  // Wiki file
+  var options = {
+    hostname : 'en.wikipedia.org',
+    path: '/w/api.php?format=json&action=query&prop=pageimages&titles='+req.query.uri,
+    port : 80,
+    method : 'GET'
+  };
+
+  var request = http.request(options, function(response){
+    var body = "";
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      if (response.statusCode == 200) {
+        var data = JSON.parse(body).query.pages;
+        var imgs = [];
+        for (var key in data) {
+          imgs.push(data[key]);
+        }
+        get_wiki_file_image("File:"+imgs[0].pageimage, function (result) {
+          res.send(result);
+        });
+      }
+    });
+  });
+
+  request.on('error', function(e) {
+    res.send('Problem with request: ' + e.message);
+  });
+
+  request.end();
+
+});
+
 app.get('/livetopics', function (req, res) {
-  console.log(req.query);
   var options = { // http://bbc.api.mashery.com/livetopics/topics?service=bbcone&from=2013-01-15T12%3A00%3A00Z&to=2013-01-15T12%3A05%3A00Z&api_key=fd6urvpzbc498vmx6dsa5evg
     hostname : 'bbc.api.mashery.com',
     path : '/livetopics/topics?service=bbcone&from=2013-01-15T12%3A00%3A00Z&to=2013-01-15T12%3A05%3A00Z&api_key='+NEWSHACK_API_KEY,
