@@ -87,16 +87,13 @@
   $('a[href^="/extract"]').on("click", function (event) {
     event.preventDefault();
 
-    $('.field-textarea').data("mentionsInput").getMentions(function (mentions) {
-      var ids = [];
-      $.each(mentions, function (index, tag) {
-        ids.push(tag.id);
-      })
+    var ids = $('.field-textarea [data-entity]').map(function (index, tag) {
+      return tag.getAttribute('data-entity');
+    }).toArray();
 
-      var clickedLink = event.target;
-      var targetContainer = '#' + clickedLink.id.replace(/-btn$/, '');
-      $.post(clickedLink.getAttribute('href'), { ids: ids }, updateRelatedList(targetContainer));
-    });
+    var clickedLink = event.target;
+    var targetContainer = '#' + clickedLink.id.replace(/-btn$/, '');
+    $.post(clickedLink.getAttribute('href'), { ids: ids }, updateRelatedList(targetContainer));
 
   });
 })(jQuery);
