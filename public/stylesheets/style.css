@@ -47,6 +47,10 @@ span[data-entity] {
 span[data-entity]:before {
   content: "+";
 }
+span[data-entity]:hover {
+  background: #ffc;
+  cursor: pointer;
+}
 span[data-entity].suggestion {
   outline: 1px dashed red;
 }

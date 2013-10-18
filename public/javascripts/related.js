@@ -46,9 +46,18 @@
     }
   });
 
-  $('.field-textarea').on('mentions.add', function(event){
-    return '@@@@';
-  });
+  $('.field-textarea').on('click', '[data-entity]', function(e){
+    var $this = $(this);
+    var string = '+' + $this.text();
+    var string_length = string.length;
+
+    for (var i = 0; i < string_length; i++){
+      $(e.delegateTarget).trigger($.Event('keypress', { which: string.charCodeAt(i), ctrlKey: false }));
+    }
+
+    $this.replaceWith(document.createTextNode(string));
+    $(e.delegateTarget).trigger('input');
+  })
 
 })(jQuery);
 
