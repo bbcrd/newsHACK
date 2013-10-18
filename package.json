@@ -5,6 +5,10 @@
   "scripts": {
     "start": "nodemon -e ejs,js,css app.js"
   },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
