@@ -57,20 +57,25 @@ a {
   margin: 0 0 0 10px;
 }
 span[data-entity],
-.field-textarea i {
+.field-textarea i,
+.field-textarea b {
   border-bottom: 1px solid green;
+  font-weight: normal;
 }
 span[data-entity]:before,
-.field-textarea i:before {
+.field-textarea i:before,
+.field-textarea b:before {
   content: "+";
 }
 span[data-entity]:hover,
-.field-textarea i:hover {
+.field-textarea i:hover,
+.field-textarea b:hover {
   background: #ffc;
   cursor: pointer;
 }
 span[data-entity].suggestion,
-.field-textarea i.suggestion {
+.field-textarea i.suggestion,
+.field-textarea b.suggestion {
   outline: 1px dashed red;
 }
 .list-group .url,

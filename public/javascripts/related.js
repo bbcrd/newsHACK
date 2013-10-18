@@ -1,7 +1,7 @@
 'use strict';
 
 ; (function($){
-  ['.field-title', '.field-tags', '.field-textarea'].forEach(function(selector){
+  ['.field-title', '.field-textarea'].forEach(function(selector){
     new Medium({
       element: document.querySelector(selector)
     });

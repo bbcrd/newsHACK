@@ -86,8 +86,8 @@
   var updateRelatedContents = function (event) {
     event.preventDefault();
 
-    var ids = $('.field-textarea [data-entity]').map(function (index, tag) {
-      return tag.getAttribute('data-entity');
+    var ids = $('.field-textarea [data-entity], .field-textarea b').map(function (index, tag) {
+      return tag.getAttribute('data-entity') || 'http://dbpedia.org/resource/'+tag.innerHTML.replace(' ', '_');
     }).toArray();
 
     $('[data-extract-from]').each(function(i, el){

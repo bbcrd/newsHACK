@@ -79,7 +79,8 @@ a {
 }
 
 span[data-entity],
-.field-textarea i{
+.field-textarea i,
+.field-textarea b{
   &:before {
     content: "+"
   }
@@ -89,6 +90,7 @@ span[data-entity],
   }
 
   border-bottom: 1px solid green;
+  font-weight: normal;
 
   &.suggestion {
   outline: 1px dashed red;
