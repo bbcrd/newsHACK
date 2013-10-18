@@ -10,6 +10,10 @@
 
   $('.field-textarea').mentionsInput({
     triggerChar: '+',
+    templates: {
+      mentionInline: _.template('<span data-entity="<%= id %>" data--id="<%= __id %>" contenteditable="false"><%= value %></span>&nbsp;'),
+      mentionItemHighlight: _.template('')
+    },
     onDataRequest:function (mode, query, callback) {
       $.getJSON("/tags", { text: query }, function (response) {
         var data = _.map(response, function(item){
@@ -40,6 +44,10 @@
 
       $autocompleteList.css(coords);
     }
+  });
+
+  $('.field-textarea').on('mentions.add', function(event){
+    return '@@@@';
   });
 
 })(jQuery);

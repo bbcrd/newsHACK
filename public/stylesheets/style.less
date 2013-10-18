@@ -55,6 +55,18 @@ a {
   margin: 0 0 0 10px;
 }
 
+span[data-entity] {
+  &:before {
+    content: "+"
+  }
+
+  border-bottom: 1px solid green;
+
+  &.suggestion {
+  outline: 1px dashed red;
+  }
+}
+
 .list-group {
   .url, h4 {
     overflow: hidden;
