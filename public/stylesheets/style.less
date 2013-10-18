@@ -60,6 +60,17 @@ a {
 }
 
 .field-textarea {
+  i {
+    outline: 1px dashed #008000;
+    padding: 4px;
+
+    border: none !important;
+
+    &:before {
+      color: @gray-light;
+    }
+  }
+
   min-height: 200px;
 }
 
@@ -67,7 +78,8 @@ a {
   margin: 0 0 0 10px;
 }
 
-span[data-entity] {
+span[data-entity],
+.field-textarea i{
   &:before {
     content: "+"
   }

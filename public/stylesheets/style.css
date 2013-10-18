@@ -45,20 +45,32 @@ a {
 .field-textarea {
   min-height: 200px;
 }
+.field-textarea i {
+  outline: 1px dashed #008000;
+  padding: 4px;
+  border: none !important;
+}
+.field-textarea i:before {
+  color: #999999;
+}
 .mentions-autocomplete-list {
   margin: 0 0 0 10px;
 }
-span[data-entity] {
+span[data-entity],
+.field-textarea i {
   border-bottom: 1px solid green;
 }
-span[data-entity]:before {
+span[data-entity]:before,
+.field-textarea i:before {
   content: "+";
 }
-span[data-entity]:hover {
+span[data-entity]:hover,
+.field-textarea i:hover {
   background: #ffc;
   cursor: pointer;
 }
-span[data-entity].suggestion {
+span[data-entity].suggestion,
+.field-textarea i.suggestion {
   outline: 1px dashed red;
 }
 .list-group .url,
