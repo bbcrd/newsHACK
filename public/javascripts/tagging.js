@@ -30,7 +30,7 @@
         .append(
           $('<h4>')
             .addClass('list-group-item-heading')
-            .html(names)
+            .html(names.join(' + '))
         )
         .append(
           $('<p>')
@@ -113,7 +113,7 @@
   });
 
   $.ajaxSetup({
-    timeout: 4000
+    //timeout: 4000
   });
 
   $(document).ajaxStart(function(){
