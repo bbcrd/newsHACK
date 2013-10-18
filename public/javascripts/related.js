@@ -47,6 +47,8 @@
   });
 
   $('.field-textarea').on('click', '[data-entity]', function(e){
+    e.stopPropagation();
+
     var $this = $(this);
     var string = '+' + $this.text();
     var string_length = string.length;
