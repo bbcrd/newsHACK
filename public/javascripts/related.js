@@ -11,7 +11,7 @@
   $('.field-textarea').mentionsInput({
     triggerChar: '+',
     templates: {
-      mentionInline: _.template('<span data-entity="<%= id %>" data--id="<%= __id %>" contenteditable="false"><%= value %></span>&nbsp;'),
+      mentionInline: _.template('<span data-entity="<%= id %>" data--id="<%= __id %>" contenteditable="false"><%= value %></span> '),
       mentionItemHighlight: _.template('')
     },
     onDataRequest:function (mode, query, callback) {
@@ -50,12 +50,23 @@
     var $this = $(this);
     var string = '+' + $this.text();
     var string_length = string.length;
+    var node = document.createTextNode(string);
 
     for (var i = 0; i < string_length; i++){
       $(e.delegateTarget).trigger($.Event('keypress', { which: string.charCodeAt(i), ctrlKey: false }));
     }
 
-    $this.replaceWith(document.createTextNode(string));
+    $this.replaceWith(node);
+
+    var sel = window.getSelection();
+    var range = sel.getRangeAt(0);
+
+    range.collapse(false);
+    range.insertNode(node);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
+
     $(e.delegateTarget).trigger('input');
   })
 
