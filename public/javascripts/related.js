@@ -15,7 +15,12 @@
       mentionItemHighlight: _.template('')
     },
     onDataRequest:function (mode, query, callback) {
-      $.getJSON("/tags", { text: query }, function (response) {
+      $.ajax({
+        url: "/tags",
+        dataType: 'json',
+        data: { text: query },
+        global: false
+      }).then(function (response) {
         var data = _.map(response, function(item){
           return {
             id: item.uri,

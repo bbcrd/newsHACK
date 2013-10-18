@@ -1,3 +1,6 @@
+@import 'variables';
+@import 'mixins';
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -84,4 +87,23 @@ span[data-entity] {
 
 .list-group-item.group {
   background-color: fade(#3071a9, 33.3);
+}
+
+[data-state="loading"] {
+  button& {
+    background-color: @progress-bar-info-bg !important;
+    #gradient > .striped(@progress-bar-info-bg);
+    background-size: 40px 40px;
+
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -moz-animation: progress-bar-stripes 2s linear infinite;
+    -ms-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+  }
+
+  button&:hover {
+    background-color: @progress-bar-info-bg;
+    border-color: @progress-bar-info-bg;
+  }
 }

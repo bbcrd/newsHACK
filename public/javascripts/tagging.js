@@ -38,7 +38,7 @@
             .html(refIds.join(', '))
         )
     },
-    '#related-stories': function(response){
+    '/extract/story': function(response){
       return $.map(response, function(data){
         var stories = $.map(data.stories, getResponseTemplate.__story);
         stories.unshift(getResponseTemplate.__reference(data.refId))
@@ -46,7 +46,7 @@
         return stories;
       });
     },
-    '#related-topics': function(response){
+    '/extract/topic': function(response){
       return $.map(response, function(data){
         return $('<a>')
           .attr('href', data.thing)
@@ -77,23 +77,38 @@
     return function(response){
       var $list = $(targetElement);
       $list.find(".list-group-item:not(.active)").remove();
-
-      var $templatedRelated = getResponseTemplate[targetElement](response);
+      var $templatedRelated = getResponseTemplate[$list.data('extractFrom')](response);
 
       $list.append($templatedRelated);
     }
   };
 
-  $('a[href^="/extract"]').on("click", function (event) {
+  var updateRelatedContents = function (event) {
     event.preventDefault();
 
     var ids = $('.field-textarea [data-entity]').map(function (index, tag) {
       return tag.getAttribute('data-entity');
     }).toArray();
 
-    var clickedLink = event.target;
-    var targetContainer = '#' + clickedLink.id.replace(/-btn$/, '');
-    $.post(clickedLink.getAttribute('href'), { ids: ids }, updateRelatedList(targetContainer));
+    $('[data-extract-from]').each(function(i, el){
+      var $el = $(el);
 
+      $el.data('state', 'loading');
+      $.post($el.data('extractFrom'), { ids: ids })
+        .then(updateRelatedList(el))
+        .then(function(){
+          $el.attr('data-state', 'loaded')
+        });
+    });
+  };
+
+  $('.field-textarea').on('mentions.change', updateRelatedContents);
+  $('#update-related').on('click', updateRelatedContents);
+
+  $(document).ajaxStart(function(){
+    $('#update-related').attr('data-state', 'loading').attr('disabled', true);
+  });
+  $(document).ajaxStop(function(){
+    $('#update-related').attr('data-state', '').removeAttr('disabled');
   });
 })(jQuery);

@@ -38,20 +38,17 @@
         </div>
 
         <div class="col-md-4">
-          <div class="btn-group btn-group-justified">
-            <a href="/extract/topic" class="btn btn-default" id="related-topics-btn"><span class="glyphicon glyphicon-refresh"></span> Related topics</a>
-            <a href="/extract/story" class="btn btn-default" id="related-stories-btn"><span class="glyphicon glyphicon-refresh"></span> Related stories</a>
-          </div>
+          <button class="btn btn-default btn-block" id="update-related" type="button" data-state=""><span class="glyphicon glyphicon-refresh"></span> Refresh <em>Related Contents</em></button>
 
           <hr>
 
-          <div class="list-group" id="related-stories">
+          <div class="list-group" id="related-stories" data-extract-from="/extract/story" data-state="">
             <a href="#" class="list-group-item active">
               <h3 class="list-group-item-heading">Related Stories</h3>
             </a>
           </div>
 
-          <div class="list-group" id="related-topics">
+          <div class="list-group" id="related-topics" data-extract-from="/extract/topic" data-state="">
             <a href="#" class="list-group-item active">
               <h3 class="list-group-item-heading">Related Topics</h3>
             </a>
