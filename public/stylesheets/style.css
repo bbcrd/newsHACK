@@ -5,6 +5,13 @@ body {
 a {
   color: #00B7FF;
 }
+.jumbotron {
+  padding: 30px !important;
+}
+.jumbotron blockquote {
+  border-left: none;
+  padding-left: 0;
+}
 #related h2 {
   margin: 0 0 6px 0;
 }

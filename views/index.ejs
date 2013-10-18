@@ -10,15 +10,20 @@
   <body>
     <div class="container">
 
-      <div class="jumbotron">
-        <h1><%= title %></h1>
-        <p>Page for BBC IRFS <%= title %> team.</p>
-        <a href="/livetopics" class="btn btn-primary btn-lg">Livetopics BBC One</a>
-      </div>
-
       <div class="row">
 
         <div class="col-md-8">
+          <div class="jumbotron">
+            <h1>Journalism Tagging</h1>
+
+            <blockquote>
+              <p><strong>Tag</strong> keywords as you write. <strong>Connect</strong> articles on the go. The easy way.</p>
+              <small>By BBC R&amp;D and UCL</small>
+            </blockquote>
+
+
+            <p></p>
+          </div>
 
           <div class="row">
             <div class="col-md-12">
@@ -27,12 +32,12 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div class="field Medium field-tags" contenteditable data-medium-placeholder="Tags"></div>
+              <div class="field Medium field-textarea" contenteditable data-medium-mode="rich" data-medium-placeholder="Story content"></div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div class="field Medium field-textarea" contenteditable data-medium-mode="rich" data-medium-placeholder="Please tale me a story…"></div>
+              <div class="field Medium field-tags" contenteditable data-medium-placeholder="Additional Tags"></div>
             </div>
           </div>
         </div>
