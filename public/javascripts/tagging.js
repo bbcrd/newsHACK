@@ -106,6 +106,10 @@
   $('.field-textarea').on('mentions.change', updateRelatedContents);
   $('#update-related').on('click', updateRelatedContents);
 
+  $.ajaxSetup({
+    timeout: 4000
+  });
+
   $(document).ajaxStart(function(){
     $('#update-related').attr('data-state', 'loading').attr('disabled', true);
   });
