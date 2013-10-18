@@ -1,11 +1,16 @@
- - Clone
+# Journalism Tagging
 
- - Install [node.js](http://nodejs.org/)
+Prototype developed for the [BBC News Hack 2013](http://newshack.co.uk/).
 
- - `cd newsHACK`
+This prototype has been developed by [BBC R&D](http://bbc.co.uk/rd) and [UCL Computer Science](http://www.cs.ucl.ac.uk/).
 
- - `npm install`
+## Install
 
- - `npm start`
+```bash
+git clone https://github.com/chrisfinch/newsHACK.git
+cd newsHACK
+npm install
+npm start
+```
 
- - visit at `0.0.0.0:3000`
+Now head to [localhost:3000](http://localhost:3000).
