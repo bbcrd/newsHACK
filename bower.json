@@ -15,10 +15,9 @@
   ],
   "dependencies": {
     "jquery": "~2.0.3",
-    "jquery-mentions-input": "git@github.com:oncletom/jquery-mentions-input.git#master",
+    "jquery-mentions-input": "oncletom/jquery-mentions-input#master",
     "bootstrap": "~3.0.0",
     "lodash": "~2.2.1",
-    "jquery.elastic": "http://jquery-elastic.googlecode.com/files/jquery.elastic-1.6.11.zip",
     "medium": "https://github.com/jakiestfu/Medium.js.git",
     "moment": "~2.3.1"
   }
