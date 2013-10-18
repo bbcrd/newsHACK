@@ -94,9 +94,16 @@ span[data-entity] {
   }
 }
 
-.list-group-item.group {
-  background-color: fade(#3071a9, 33.3);
+.list-group-item {
+  &.group {
+    background-color: fade(@gray-light, 33.3);
+  }
+
+  &.selected {
+    background-color: fade(@brand-success, 33.3);
+  }
 }
+
 
 [data-state="loading"] {
   button&,

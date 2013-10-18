@@ -76,7 +76,7 @@
 
     return function(response){
       var $list = $(targetElement);
-      $list.find(".list-group-item:not(.active)").remove();
+      $list.find(".list-group-item").not('.active, .selected').remove();
       var $templatedRelated = getResponseTemplate[$list.data('extractFrom')](response);
 
       $list.append($templatedRelated);
@@ -105,6 +105,12 @@
 
   $('.field-textarea').on('mentions.change', updateRelatedContents);
   $('#update-related').on('click', updateRelatedContents);
+
+  $('[data-extract-from]').on('click', '.list-group-item:not(.active)', function(e){
+    e.preventDefault();
+
+    $(this).toggleClass('selected');
+  });
 
   $.ajaxSetup({
     timeout: 4000

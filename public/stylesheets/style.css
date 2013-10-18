@@ -71,7 +71,10 @@ span[data-entity].suggestion {
   margin-right: 5px;
 }
 .list-group-item.group {
-  background-color: rgba(48, 113, 169, 0.33299999999999996);
+  background-color: rgba(153, 153, 153, 0.33299999999999996);
+}
+.list-group-item.selected {
+  background-color: rgba(92, 184, 92, 0.33299999999999996);
 }
 button[data-state="loading"],
 [data-state="loading"] .list-group-item.active {
