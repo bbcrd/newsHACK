@@ -229,7 +229,8 @@ app.get('/livetopics', function (req, res) {
 
 app.post('/index-content', function (req, res) {
   var options = {
-    url: 'http://ec2-54-229-238-114.eu-west-1.compute.amazonaws.com/topic-finder/find/story'
+    url: 'http://ec2-54-229-238-114.eu-west-1.compute.amazonaws.com/topic-finder/find/story',
+    form: { text: req.body.text }
   };
 
   request.post(options, function(err, response, body){
@@ -238,7 +239,7 @@ app.post('/index-content', function (req, res) {
     }
 
     res.send(204);
-  }).form({ text: req.body.text });
+  }).form(options.form);
 });
 
 app.post("/extract/:context", function (req, res) {
