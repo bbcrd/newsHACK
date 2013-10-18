@@ -233,13 +233,15 @@ app.post('/index-content', function (req, res) {
     form: { text: req.body.text }
   };
 
-  request.post(options.url, { form: options.form }, function(err, response, body){
+  /*request.post(options.url, { form: options.form }, function(err, response, body){
     if (err){
       return res.send(500, { error: 'Something blew up'});
     }
 
     res.send(204);
-  });
+  });*/
+
+  res.send(204);
 });
 
 app.post("/extract/:context", function (req, res) {
