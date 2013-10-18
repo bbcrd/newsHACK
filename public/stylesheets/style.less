@@ -90,7 +90,8 @@ span[data-entity] {
 }
 
 [data-state="loading"] {
-  button& {
+  button&,
+  .list-group-item.active{
     background-color: @progress-bar-info-bg !important;
     #gradient > .striped(@progress-bar-info-bg);
     background-size: 40px 40px;
@@ -105,5 +106,9 @@ span[data-entity] {
   button&:hover {
     background-color: @progress-bar-info-bg;
     border-color: @progress-bar-info-bg;
+  }
+
+  .list-group& {
+    opacity: 0.6;
   }
 }

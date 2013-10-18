@@ -20,7 +20,7 @@
         dataType: 'json',
         data: { text: query },
         global: false
-      }).then(function (response) {
+      }).done(function (response) {
         var data = _.map(response, function(item){
           return {
             id: item.uri,

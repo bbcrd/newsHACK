@@ -93,10 +93,11 @@
     $('[data-extract-from]').each(function(i, el){
       var $el = $(el);
 
-      $el.data('state', 'loading');
+      $el.attr('data-state', 'loading');
       $.post($el.data('extractFrom'), { ids: ids })
-        .then(updateRelatedList(el))
-        .then(function(){
+        .done(updateRelatedList(el))
+        .always(function(){
+          console.log('loaded')
           $el.attr('data-state', 'loaded')
         });
     });
