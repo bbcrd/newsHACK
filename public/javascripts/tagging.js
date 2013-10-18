@@ -1,6 +1,7 @@
 'use strict';
 
 ; (function($){
+  // Related Contents Templating
   var getResponseTemplate = {
     '__story': function(story){
       return $('<a>')
@@ -72,8 +73,8 @@
     }
   };
 
+  // Related Contents Template Generator
   var updateRelatedList = function (targetElement) {
-
     return function(response){
       var $list = $(targetElement);
       $list.find(".list-group-item").not('.active, .selected').remove();
@@ -83,6 +84,7 @@
     }
   };
 
+  // Grabbing Related Contents and Triggering its display
   var updateRelatedContents = function (event) {
     event.preventDefault();
 
@@ -107,15 +109,21 @@
 
   };
 
+  // Related Content Triggering Events
   $('.field-textarea').on('mentions.change', updateRelatedContents);
   $('#update-related').on('click', updateRelatedContents);
-
   $('[data-extract-from]').on('click', '.list-group-item:not(.active)', function(e){
     e.preventDefault();
 
     $(this).toggleClass('selected');
   });
 
+  // Clearing text cache on page load
+  $(function(){
+    $.post('/index-content', { text: '' });
+  });
+
+  // Global AJAX Setup
   $.ajaxSetup({
     timeout: 9000
   });
