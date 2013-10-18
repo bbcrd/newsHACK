@@ -13,12 +13,12 @@
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
+    "bower": "~1.2.7",
     "less-middleware": "*",
     "natural": "~0.1.23",
     "request": "~2.27.0"
   },
   "devDependencies": {
-    "nodemon": "~0.7.10",
-    "bower": "~1.2.7"
+    "nodemon": "~0.7.10"
   }
 }
