@@ -227,6 +227,20 @@ app.get('/livetopics', function (req, res) {
 
 });
 
+app.post('/index-content', function (req, res) {
+  var options = {
+    url: 'http://ec2-54-229-238-114.eu-west-1.compute.amazonaws.com/topic-finder/find/story'
+  };
+
+  request.post(options, function(err, response, body){
+    if (err){
+      return res.send(500, { error: 'Something blew up'});
+    }
+
+    res.send(204);
+  }).form({ text: req.body.text });
+});
+
 app.post("/extract/:context", function (req, res) {
   if (req.body.ids === undefined){
     return res.json([]);
@@ -243,7 +257,7 @@ app.post("/extract/:context", function (req, res) {
 
   request.get(options, function(err, response, body){
     if (err){
-      res.send('Problem with request: ' + err.message);
+      res.send(500, 'Problem with request: ' + err.message);
     }
 
     res.json(body);

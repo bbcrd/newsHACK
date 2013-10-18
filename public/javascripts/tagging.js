@@ -90,17 +90,21 @@
       return tag.getAttribute('data-entity') || 'http://dbpedia.org/resource/'+tag.innerHTML.replace(' ', '_');
     }).toArray();
 
-    $('[data-extract-from]').each(function(i, el){
-      var $el = $(el);
+    $.post('/index-content', { text: $('.field-textarea').text() }).done(function(){
+      $('[data-extract-from]').each(function(i, el){
+        var $el = $(el);
 
-      $el.attr('data-state', 'loading');
-      $.post($el.data('extractFrom'), { ids: ids })
-        .done(updateRelatedList(el))
-        .always(function(){
-          console.log('loaded')
-          $el.attr('data-state', 'loaded')
-        });
+        $el.attr('data-state', 'loading');
+        $.post($el.data('extractFrom'), { ids: ids })
+          .done(updateRelatedList(el))
+          .always(function(){
+            console.log('loaded')
+            $el.attr('data-state', 'loaded')
+          });
+      });
     });
+
+
   };
 
   $('.field-textarea').on('mentions.change', updateRelatedContents);
@@ -113,7 +117,7 @@
   });
 
   $.ajaxSetup({
-    //timeout: 4000
+    timeout: 9000
   });
 
   $(document).ajaxStart(function(){
