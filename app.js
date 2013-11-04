@@ -95,7 +95,7 @@ app.get('/tags', function (req, res) {
 
   // Tripplestore API
   var options = {
-    hostname : 'ec2-54-229-238-114.eu-west-1.compute.amazonaws.com',
+    hostname : 'ec2-54-194-9-63.eu-west-1.compute.amazonaws.com',
     path: '/label-index/_search',
     port : 80,
     method : 'POST',
