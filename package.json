@@ -10,6 +10,7 @@
     "node": "0.10.x",
     "npm": "1.2.x"
   },
+  "license": "Apache-2.0",
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
