@@ -254,7 +254,7 @@ app.post("/extract/:context", function (req, res) {
   });
 
   var options = {
-    uri: 'http://ec2-54-229-238-114.eu-west-1.compute.amazonaws.com/topic-finder/find/'+req.params.context+ids_string,
+    uri: 'http://ec2-54-194-9-63.eu-west-1.compute.amazonaws.com/topic-finder/find/'+req.params.context+ids_string,
     json: true
   };
 
