@@ -9,7 +9,7 @@ This prototype has been developed by [BBC R&D](http://bbc.co.uk/rd) and [UCL Com
 ## Install
 
 ```bash
-git clone https://github.com/chrisfinch/newsHACK.git
+git clone https://github.com/bbcrd/newsHACK.git
 cd newsHACK
 npm install
 npm start
