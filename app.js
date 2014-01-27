@@ -123,7 +123,7 @@ app.get('/tags', function (req, res) {
   });
 
   request.on('error', function(e) {
-    res.send('Problem with request: ' + e.message);
+    res.send(500, 'Problem with request: ' + e.message);
   });
 
   request.write(post_data_string);
@@ -159,7 +159,7 @@ app.get('/tag_image', function (req, res) {
       });
     });
     request.on('error', function(e) {
-      res.send('Problem with request: ' + e.message);
+      res.send(500, 'Problem with request: ' + e.message);
     });
     request.end();
   };
@@ -192,7 +192,7 @@ app.get('/tag_image', function (req, res) {
   });
 
   request.on('error', function(e) {
-    res.send('Problem with request: ' + e.message);
+    res.send(500, 'Problem with request: ' + e.message);
   });
 
   request.end();
@@ -221,7 +221,7 @@ app.get('/livetopics', function (req, res) {
   });
 
   request.on('error', function(e) {
-    res.send('Problem with request: ' + e.message);
+    res.send(500, 'Problem with request: ' + e.message);
   });
 
   request.end();
