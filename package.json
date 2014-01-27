@@ -1,20 +1,30 @@
 {
   "name": "application-name",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "nodemon -e ejs,js,css app.js",
+    "start": "node ./app.js",
+    "start-dev": "nodemon -e ejs,js,css app.js",
     "install": "bower install"
   },
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
   },
+  "config": {
+    "aws": {
+      "ec2_hostname": "ec2-54-194-94-178.eu-west-1.compute.amazonaws.com"
+    },
+    "apis": {
+      "guardian": "NewsLabs2013",
+      "newshack": "tu5q78bw3hc8erqgxrwgbhjc"
+    }
+  },
   "license": "Apache-2.0",
   "dependencies": {
-    "express": "3.3.4",
+    "express": "~3.3.4",
     "ejs": "*",
-    "bower": "~1.2.7",
+    "bower": "~1.2.8",
     "less-middleware": "*",
     "natural": "~0.1.23",
     "request": "~2.27.0"

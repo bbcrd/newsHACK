@@ -11,8 +11,9 @@ var express = require('express'),
     request = require('request'),
     natural = require('natural');
 
-var GUARDIAN_API_KEY = "NewsLabs2013"; // api-key
-var NEWSHACK_API_KEY = "tu5q78bw3hc8erqgxrwgbhjc";
+var GUARDIAN_API_KEY = process.env.npm_package_config_apis_guardian;
+var NEWSHACK_API_KEY = process.env.npm_package_config_apis_newshack;
+var REMOTE_INSTANCE_HOST = process.env.npm_package_config_aws_ec2_hostname;
 
 var app = express();
 
@@ -95,7 +96,7 @@ app.get('/tags', function (req, res) {
 
   // Tripplestore API
   var options = {
-    hostname : 'ec2-54-194-9-63.eu-west-1.compute.amazonaws.com',
+    hostname : REMOTE_INSTANCE_HOST,
     path: '/label-index/_search',
     port : 80,
     method : 'POST',
@@ -229,7 +230,7 @@ app.get('/livetopics', function (req, res) {
 
 app.post('/index-content', function (req, res) {
   var options = {
-    url: 'http://ec2-54-229-238-114.eu-west-1.compute.amazonaws.com/topic-finder/find/story',
+    url: 'http://'+ REMOTE_INSTANCE_HOST +'/topic-finder/find/story',
     form: { text: req.body.text }
   };
 
@@ -254,7 +255,7 @@ app.post("/extract/:context", function (req, res) {
   });
 
   var options = {
-    uri: 'http://ec2-54-194-9-63.eu-west-1.compute.amazonaws.com/topic-finder/find/'+req.params.context+ids_string,
+    uri: 'http://'+ REMOTE_INSTANCE_HOST +'/topic-finder/find/'+req.params.context+ids_string,
     json: true
   };
 
